@@ -31,13 +31,75 @@ class Product {
                 }
             }) /* .then will handle the promise we get back from fetch. fetch always returns 
             a promise for a response object. */
-            .then(productArray => {
-
+            .then(productArray => { /* when you're in a situation where you need to have access to the same context as before or later on, use an arrow function. When you're defining a function, and you know when the function gets called you want a reference to the same context you're in when you define it, use arrow function. */
+                this.collection = productArray.map(attrs => new Product(attrs)) /* storing the product list we're getting back from the API in a class variable (this.collection) */
+                let renderedProducts = this.collection.map(product => Product.render()) /* array of product items */
+                this.container().append(...renderedProducts);
+                return this.collection
             })
     }
-   
-    render() {
 
+/* <article class="overflow-hidden rounded-lg shadow-lg">
+            
+                            <a href="#">
+                                <img alt="Placeholder" class="block h-auto w-full" src="https://cdn.shopify.com/s/files/1/0019/2217/0943/products/1_7e397d35-e3d3-4a2e-b94e-64c28d32cf1b_1200x.jpg?v=1605550787">
+                            </a>
+            
+                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+                                <h1 class="text-lg">
+                                    <a class="no-underline hover:underline text-black" href="#">
+                                        Product Name
+                                    </a>
+                                </h1>
+                            </header>
+
+                            <footer class=
+            
+                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+                                <h1 class ="text-lg">
+                                    <a class="flex items-center no-underline text-black">Description
+                                    </a>
+                                    <a class="flex items-center no-underline text-black">Link to Buy   
+                                    </a>                             
+                            </footer>
+            
+                        </article> */
+
+    render() {
+        this.element ||= document.createElement('article');
+        this.element.classList.add(..."overflow-hidden rounded-lg shadow-lg".split(" ")); /* turns into array of separate classes */
+
+        this.img_src ||= document.createElement('a'); /* is this actually supposed to be called img_src? */
+        this.img_src.classList.add(..."block h-auto w-full".split(" "));
+        this.img_src.src = this.image_src;
+        
+        this.header ||= document.createElement('header'); 
+        this.header.classList.add(..."flex items-center justify-between leading-tight p-2 md:p-4".split(" "));
+
+        this.h_one ||= document.createElement ('h1'); 
+        this.h_one.classList.add(..."text-lg".split(" "));
+
+        this.nameLink ||= document.createElement('a');
+        this.nameLink.classList.add(..."no-underline hover:underline text-black".split(" ")); /* this could actually be a link but not necessarily? */
+        this.nameLink.textContent = this.name;
+
+        this.footer ||= document.createElement('footer'); 
+        this.footer.classList.add(..."flex items-center justify-between leading-none p-2 md:p-4".split(" "));
+
+        this.another_h_one ||= document.createElement ('h1'); 
+        this.another_h_one.classList.add(..."text-lg".split(" "));
+
+        this.product_description ||= document.createElement('a');
+        this.product_description.classList.add(..."flex items-center no-underline hover:underline text-black".split(" "));
+        this.product_description.textContent = this.description;
+
+        this.product_link ||= document.createElement('a');
+        this.product_link.classList.add(..."flex items-center no-underline hover:underline text-black".split(" "));
+        this.product_link.textContent = this.link;
+
+        this.element.append(this.img_src, this.header, this.h_one, this.nameLink, this.footer, this.another_h_one, this.product_description, this.product_link); /* what does this mean??? HELP */
+
+        return this.element; /* ok so clearly we are returning just the initial element... the ARTICLE */
     }
 }
 
