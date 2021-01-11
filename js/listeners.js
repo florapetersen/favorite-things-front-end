@@ -1,5 +1,3 @@
-/* just for reference: */
-
 document.addEventListener('click', function(e) {
     console.dir(e.target)
 })
@@ -13,5 +11,13 @@ and then call the right method. */
 
 document.addEventListener('DOMContentLoaded', function(e) {
     Product.all();
+})
+
+document.addEventListener('submit', function(e) {
+    let target = e.target;
+    if (target.matches('#newFavoriteThing')) { /* how do you know this is CSS, not HTML? */
+        e.preventDefault();
+        console.log('submitted')
+    }
 })
 
