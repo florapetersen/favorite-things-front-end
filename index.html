@@ -8,12 +8,19 @@
 </head>
 <body>
     <div class="container mx-auto sm:grid grid-cols-3 gap-4 my-4">
+        <section id="flash" class="h-10 col-span-3 py-2 pl-3 opacity-0 transition-opacity duration-700">Error Message</section>
         <section id="categoriesContainer" class="px-4 bg-white sm:min-h-screen rounded-md shadow">
           <h1 class="text-2xl semibold border-b-4 border-white">Favorite Things</h1>
           <h2 class="text-1.75xl semibold border-b-4 border-white">User Name</h2>
           <form id="newFavoriteThing" class="flex mt-5">
-            <input type="text" class="flex-1 p-3" placeholder="New Favorite Thing" />
+            <li>
+            <input type="text" name="name" class="flex-1 p-3" placeholder="New Favorite Thing" />
+            <input type="text" name="description" class="flex-1 p-3" placeholder="Description" />
+            <input type="text" name="link" class="flex-1 p-3" placeholder="Link to Buy" />
+            <input type="text" name="image_src" class="flex-1 p-3" placeholder="Image Source Link" />
+            <input type="text" name="category" class="flex-1 p-3" placeholder="Category" />
             <button type="submit" class="flex-none"><i class="fa fa-plus p-4 z--1 bg-green-400"></i></button>
+          </li>
           </form><br>
           <ul id="categories" class="list-none">
             <h1 class="text-1.75xl semibold border-b-4 border-white">Filter by Category</h1> 
@@ -105,15 +112,14 @@
                                     </a>
                                 </h1>
                             </header>
-
-                            <footer class=
             
                             <footer class="flex items-center justify-between leading-none p-2 md:p-4">
                                 <h1 class ="text-lg">
                                     <a class="flex items-center no-underline text-black">Description
                                     </a>
                                     <a class="flex items-center no-underline text-black">Link to Buy   
-                                    </a>                             
+                                    </a>   
+                                    <a class="flex items-center no-underline text-black">Category</a>                          
                             </footer>
             
                         </article>

@@ -14,10 +14,14 @@ document.addEventListener('DOMContentLoaded', function(e) {
 })
 
 document.addEventListener('submit', function(e) {
-    let target = e.target;
+    let target = e.target; /* the target of a submit event is always the form that you submitted */
     if (target.matches('#newFavoriteThing')) { /* how do you know this is CSS, not HTML? */
         e.preventDefault();
-        console.log('submitted')
+        let formData = {}
+        target.querySelectorAll('input').forEach(function(input) {
+            formData[input.name] = input.value;
+        })
+        Product.create(formData);
     }
 })
 

@@ -18,7 +18,7 @@ class Product {
     Also, to return a promise. */
     static all() {
         console.log(this);
-        return fetch("https://localhost:3000/products", {
+        return fetch("http://localhost:3000/products", {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -34,7 +34,7 @@ class Product {
             a promise for a response object. */
             .then(productArray => { /* when you're in a situation where you need to have access to the same context as before or later on, use an arrow function. When you're defining a function, and you know when the function gets called you want a reference to the same context you're in when you define it, use arrow function. */
                 this.collection = productArray.map(attrs => new Product(attrs)) /* storing the product list we're getting back from the API in a class variable (this.collection) */
-                let renderedProducts = this.collection.map(product => Product.render()) /* array of product items */
+                let renderedProducts = this.collection.map(product => product.render()) /* array of product items */
                 this.container().append(...renderedProducts);
                 return this.collection
             })
@@ -47,7 +47,7 @@ It will add that DOM node to Product.container().
 It will return a promise for the Product object that was created. */
 
     static create(formData) {
-        return fetch("https://localhost:3000/products", {
+        return fetch("http://localhost:3000/products", {
             method: "POST",
             headers: {
                 "Accept": "application/json",
@@ -70,11 +70,15 @@ It will return a promise for the Product object that was created. */
                 let product = new Product(productAttributes);
                 this.collection.push(product); /* this.collection = Product.collection. Because of arrow function/this thing. */
                 this.container().appendChild(product.render()); /* this will give us element that represents that particular product. */
+                new FlashMessage({type: 'success', message: "New product added successfully"})
                 return product;
             }) /* most important diference between arrow functions and regular functions is how they relate to this keyword.
         (context of function) If you use arrow function, the context of this (what it refers to) is same one that you have when you define the function.
         Defining arrow function gives access to same context you're in, inside of function, as if you were not inside.
         Arrow functions don't have their own context. */
+            .catch(error => {
+                new FlashMessage({type: 'error', message: error});
+            })
     }
 
 /* <article class="overflow-hidden rounded-lg shadow-lg">
@@ -90,8 +94,6 @@ It will return a promise for the Product object that was created. */
                                     </a>
                                 </h1>
                             </header>
-
-                            <footer class=
             
                             <footer class="flex items-center justify-between leading-none p-2 md:p-4">
                                 <h1 class ="text-lg">
@@ -105,11 +107,11 @@ It will return a promise for the Product object that was created. */
 
     render() {
         this.element ||= document.createElement('article');
-        this.element.classList.add(..."overflow-hidden rounded-lg shadow-lg".split(" ")); /* turns into array of separate classes */
+        this.element.classList.add(..."overflow-hidden rounded-lg shadow-lg p-4".split(" ")); /* turns into array of separate classes */
 
         this.imgSrc ||= document.createElement('a'); /* is this actually supposed to be called img_src? */
         this.imgSrc.classList.add(..."block h-auto w-full".split(" "));
-        this.imgSrc.src = this.imageSrc;
+        this.imgSrc.textContent = this.image_src;
         
         this.header ||= document.createElement('header'); 
         this.header.classList.add(..."flex items-center justify-between leading-tight p-2 md:p-4".split(" "));
@@ -135,7 +137,11 @@ It will return a promise for the Product object that was created. */
         this.productLink.classList.add(..."flex items-center no-underline hover:underline text-black".split(" "));
         this.productLink.textContent = this.link;
 
-        this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.footer, this.anotherHOne, this.productDescription, this.productLink); /* what does this mean??? HELP */
+        this.categoryLink ||= document.createElement('a');
+        this.categoryLink.classList.add(..."flex items-center no-underline text-black".split(" "));
+        this.categoryLink.textContent = this.category_id.name;
+
+        this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.footer, this.anotherHOne, this.productDescription, this.productLink, this.categoryLink); /* what does this mean??? HELP */
 
         return this.element; /* ok so clearly we are returning just the initial element... the ARTICLE */
     }
@@ -149,5 +155,29 @@ class Category {
 
     static container() {
         return this.c ||= document.querySelector("#categoriesContainer")
+    }
+}
+
+class FlashMessage {
+    constructor({type, message}) {
+        this.message = message;
+        // color = red if error and blue if not //
+        this.color = type == "error" ? 'bg-red-200' : 'bg-blue-100";'
+        this.render();
+    }
+
+    static container() {
+        return this.c ||= document.querySelector('#flash')
+    }
+
+    render() {
+        this.toggleMessage();
+        window.setTimeout(this.toggleMessage.bind(this), 5000);
+    }
+
+    toggleMessage() {
+        FlashMessage.container().textContent = this.message;
+        FlashMessage.container().classList.toggle(this.color);
+        FlashMessage.container().classList.toggle("opacity-0");
     }
 }
