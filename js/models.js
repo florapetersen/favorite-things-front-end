@@ -39,6 +39,10 @@ class Product {
                 return this.collection
             })
     }
+/* accepts an id as an argument and returns the Product matching that id */ 
+    static findById(id) {
+        return this.collection.find(product => product.id == id);
+    })
 
 /* Product.create(formdata) will make a fetch request to create a new Product in our DB. 
 It will use a successful response to create a new Product client-side, and store it in this.collection.
@@ -120,8 +124,9 @@ It will return a promise for the Product object that was created. */
         this.hOne.classList.add(..."text-lg".split(" "));
 
         this.nameLink ||= document.createElement('a');
-        this.nameLink.classList.add(..."no-underline hover:underline text-black".split(" ")); /* this could actually be a link but not necessarily? */
+        this.nameLink.classList.add(..."no-underline hover:underline text-black selectProduct".split(" ")); /* this could actually be a link but not necessarily? */
         this.nameLink.textContent = this.name;
+        this.nameLink.dataset.productId = this.id;
 
         this.footer ||= document.createElement('footer'); 
         this.footer.classList.add(..."flex items-center justify-between leading-none p-2 md:p-4".split(" "));
@@ -139,7 +144,7 @@ It will return a promise for the Product object that was created. */
 
         this.categoryLink ||= document.createElement('a');
         this.categoryLink.classList.add(..."flex items-center no-underline text-black".split(" "));
-        this.categoryLink.textContent = this.category_id.name;
+        this.categoryLink.textContent = this.category_id;
 
         this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.footer, this.anotherHOne, this.productDescription, this.productLink, this.categoryLink); /* what does this mean??? HELP */
 

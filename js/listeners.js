@@ -1,5 +1,7 @@
 document.addEventListener('click', function(e) {
-    console.dir(e.target)
+    let target = e.target;
+    if(target.matches(".selectProduct"))
+    console.log('selected product', target.dataset.productId)
 })
 
 /* we're relying on all events propagating to the document.
