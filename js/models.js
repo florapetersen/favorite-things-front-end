@@ -1,6 +1,6 @@
 class Product {
     constructor(attributes) {
-        let whitelist = ["id", "name", "description", "link"]
+        let whitelist = ["id", "name", "description", "link", "category_id", "category_name", "image_src"]
         whitelist.forEach(attr => this[attr] = attributes[attr])
     }
 
@@ -39,10 +39,13 @@ class Product {
                 return this.collection
             })
     }
-/* accepts an id as an argument and returns the Product matching that id */ 
+
     static findById(id) {
         return this.collection.find(product => product.id == id);
-    })
+    }
+
+    /* we're using == instead of === because when it finds product id in the dataset it'll actually return as a string.
+    so == is how we say it's "basically" the same instead of "exactly" the same. */
 
 /* Product.create(formdata) will make a fetch request to create a new Product in our DB. 
 It will use a successful response to create a new Product client-side, and store it in this.collection.
@@ -85,37 +88,28 @@ It will return a promise for the Product object that was created. */
             })
     }
 
-/* <article class="overflow-hidden rounded-lg shadow-lg">
-            
-                            <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://cdn.shopify.com/s/files/1/0019/2217/0943/products/1_7e397d35-e3d3-4a2e-b94e-64c28d32cf1b_1200x.jpg?v=1605550787">
-                            </a>
-            
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Product Name
-                                    </a>
-                                </h1>
-                            </header>
-            
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <h1 class ="text-lg">
-                                    <a class="flex items-center no-underline text-black">Description
-                                    </a>
-                                    <a class="flex items-center no-underline text-black">Link to Buy   
-                                    </a>                             
-                            </footer>
-            
-                        </article> */
+    modalContent() {
+        this.modal ||= document.createElement('div');
+        
+        this.productDescription ||= document.createElement('a');
+        this.productDescription.classList.add(..."flex items-center no-underline hover:underline text-black".split(" "));
+        this.productDescription.textContent = this.description;
 
+        this.productLink ||= document.createElement('a');
+        this.productLink.classList.add(..."flex items-center no-underline hover:underline text-black".split(" "));
+        this.productLink.textContent = this.link;
+
+        this.modal.append(this.productDescription, this.productLink);
+        return this.modal
+    }
+    
     render() {
         this.element ||= document.createElement('article');
         this.element.classList.add(..."overflow-hidden rounded-lg shadow-lg p-4".split(" ")); /* turns into array of separate classes */
 
-        this.imgSrc ||= document.createElement('a'); /* is this actually supposed to be called img_src? */
+        this.imgSrc ||= document.createElement('img'); 
         this.imgSrc.classList.add(..."block h-auto w-full".split(" "));
-        this.imgSrc.textContent = this.image_src;
+        this.imgSrc.src = this.image_src; 
         
         this.header ||= document.createElement('header'); 
         this.header.classList.add(..."flex items-center justify-between leading-tight p-2 md:p-4".split(" "));
@@ -124,9 +118,9 @@ It will return a promise for the Product object that was created. */
         this.hOne.classList.add(..."text-lg".split(" "));
 
         this.nameLink ||= document.createElement('a');
-        this.nameLink.classList.add(..."no-underline hover:underline text-black selectProduct".split(" ")); /* this could actually be a link but not necessarily? */
-        this.nameLink.textContent = this.name;
+        this.nameLink.classList.add(..."no-underline hover:underline text-black selectProduct".split(" ")); 
         this.nameLink.dataset.productId = this.id;
+        this.nameLink.innerHTML = `<i class="productModal" data-product-id="${this.id}">${this.name}</i>`;
 
         this.footer ||= document.createElement('footer'); 
         this.footer.classList.add(..."flex items-center justify-between leading-none p-2 md:p-4".split(" "));
@@ -144,11 +138,11 @@ It will return a promise for the Product object that was created. */
 
         this.categoryLink ||= document.createElement('a');
         this.categoryLink.classList.add(..."flex items-center no-underline text-black".split(" "));
-        this.categoryLink.textContent = this.category_id;
+        this.categoryLink.textContent = this.category_name;
 
         this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.footer, this.anotherHOne, this.productDescription, this.productLink, this.categoryLink); /* what does this mean??? HELP */
 
-        return this.element; /* ok so clearly we are returning just the initial element... the ARTICLE */
+        return this.element; 
     }
 }
 
@@ -160,6 +154,73 @@ class Category {
 
     static container() {
         return this.c ||= document.querySelector("#categoriesContainer")
+    }
+
+    static all() {
+        console.log(this);
+        return fetch("http://localhost:3000/categories", {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => {
+                if(res.ok) {
+                    return res.json()
+                }   else {
+                    return res.text().then(error => Promise.reject(error))
+                }
+            })
+            .then(categoryArray => {
+                this.collection = categoryArray.map(attrs => new Category(attrs))
+                let renderedCategories = this.collection.map(category => category.render())
+                this.container().append(...renderedCategories);
+                this.collection.map(group => group.categoryOptions());
+                return this.collection
+            })
+    }
+
+    categoryOptions(){
+        this.option ||= document.createElement("option")
+        this.option.value = this.id
+        this.option.textContent = this.name
+        document.getElementById("category_id").appendChild(this.option)
+    }
+
+    /* <li class="my-2 px-4 bg-white grid grid-cols-12 sm:grid-cols-6">
+              <a href="#" class="py-4 col-span-10 sm:col-span-4">Activewear</a>
+              <a href="#" class="my-4 text-right"><i class="fa fa-pencil-alt"></i></a>
+              <a href="#" class="my-4 text-right"><i class="fa fa-trash-alt"></i></a>
+            </li> */
+    
+    render() {
+        this.element ||= document.createElement('ul');
+        this.element.classList.add(..."list-none".split(" "));
+        
+        this.listElement ||= document.createElement('li');
+        this.listElement.classList.add(..."my-2 px-4 bg-white grid grid-cols-12 sm:grid-cols-6".split(" "));
+
+        this.categoryLink ||= document.createElement('a');
+        this.categoryLink.classList.add(..."no-underline hover:underline py-1 col-span-10 sm:col-span-4 selectCategory".split(" "));
+        this.categoryLink.textContent = this.name;
+        this.categoryLink.dataset.categoryId = this.id;
+
+        this.elementTwo ||= document.createElement('a');
+        this.elementTwo.classList.add(..."my-4 text-right".split(" "));
+
+        this.elementThree ||= document.createElement('i');
+        this.elementThree.classList.add(..."fa fa-pencil-alt".split(" "));
+
+        this.elementFour ||= document.createElement('a');
+        this.elementFour.classList.add(..."my-4 text-right".split(" "));
+
+        this.elementFive ||= document.createElement('i');
+        this.elementFive.classList.add(..."fa fa-trash-alt".split(" "));
+
+        this.element.append(this.listElement, this.categoryLink, this.elementTwo, this.elementThree, this.elementFour, this.elementFive);
+
+        return this.element;
+        
     }
 }
 
@@ -185,4 +246,27 @@ class FlashMessage {
         FlashMessage.container().classList.toggle(this.color);
         FlashMessage.container().classList.toggle("opacity-0");
     }
+}
+
+class Modal {
+    static init() {
+        this.body ||= document.body;
+        this.modal ||= document.querySelector('.modal');
+        this.title ||= document.querySelector('#modal-title');
+        this.content ||= document.querySelector('#modal-content')
+    }
+    
+    static populate({title, content}) {
+        this.title.innerText = title;
+        this.content.innerHTML = "";
+        this.content.append(content);
+    }
+
+    static toggle() {
+        this.modal.classList.toggle('opacity-0');
+        this.modal.classList.toggle('pointer-events-none');
+        this.body.classList.toggle('modal-active');
+    }
+
+
 }
