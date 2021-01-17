@@ -1,202 +1,31 @@
+## About:
+Welcome to FavoriteThings! FavoriteThings is an app where users can upload their favorite products, share, and recommend them to friends and followers. 
 
-            
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-            
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-            
-                            <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
-                            </a>
-            
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-            
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-            
-                        </article>
-                        <!-- END Article -->
-            
-                    </div>
-                    <!-- END Column -->
-            
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-            
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-            
-                            <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
-                            </a>
-            
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-            
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-            
-                        </article>
-                        <!-- END Article -->
-            
-                    </div>
-                    <!-- END Column -->
-            
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-            
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-            
-                            <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
-                            </a>
-            
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-            
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-            
-                        </article>
-                        <!-- END Article -->
-            
-                    </div>
-                    <!-- END Column -->
-            
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-            
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-            
-                            <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
-                            </a>
-            
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-            
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-            
-                        </article>
-                        <!-- END Article -->
-            
-                    </div>
-                    <!-- END Column -->
-            
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-            
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-            
-                            <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
-                            </a>
-            
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-            
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-            
-                        </article>
-                        <!-- END Article -->
-            
-                    </div> 
-                    <!-- END Column -->
-            
+## Installation:
+To use FavoriteThings, first you'll need the back-end: https://github.com/florapetersen/favorite-things-backendclone 
+You can clone both repositories. In the back-end, install the dependencies and set up the database by typing the following into your terminal:
+
+```$ bundle install```
+
+```$ rails db:migrate```
+
+```$ rails db:seeds```
+
+and launch the server:
+
+```$ rails server``` 
+
+In the front-end, you can launch the app in your browser by typing:
+
+```open index.html```
+
+into your terminal. 
+
+## Contributing:
+Bug reports and pull requests are welcome on GitHub at https://github.com/florapetersen/favorite-things-front-end and https://github.com/florapetersen/favorite-things-backend. This project is intended to be a safe, welcoming space for collaboration. Contributors are expected to adhere to the Contributor Covenant code of conduct.
+
+## License:
+The system is available as open source under the terms of the MIT License.
+
+
+

@@ -17,21 +17,16 @@ document.addEventListener('click', function(e) {
     } else if(target.matches(".modal-close") || target.matches(".modal-overlay")) {
         e.preventDefault();
         Modal.toggle();
+    } else if(target.matches(".filterCategory")) {
+        e.preventDefault();
+        let selected_category = Category.findById(target.dataset.categoryId);
+        console.log(selected_category)
     }
 })
 
-/* we're relying on all events propagating to the document.
-We will capture the target of the event and use that to determine
-how we should respond when that particular thing gets clicked on.
-Rather than having separate click event listeners, you have a single one
-and check what the target of the event (CSS selector was that matched it)
-and then call the right method. */
-
-
-
 document.addEventListener('submit', function(e) {
-    let target = e.target; /* the target of a submit event is always the form that you submitted */
-    if (target.matches('#newFavoriteThing')) { /* how do you know this is CSS, not HTML? */
+    let target = e.target; 
+    if (target.matches('#newFavoriteThing')) { 
         e.preventDefault();
         let formData = {}
         target.querySelectorAll('input').forEach(function(input) {
