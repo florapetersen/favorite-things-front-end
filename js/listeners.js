@@ -20,7 +20,10 @@ document.addEventListener('click', function(e) {
     } else if(target.matches(".filterCategory")) {
         e.preventDefault();
         let selected_category = Category.findById(target.dataset.categoryId);
-        console.log(selected_category)
+        Product.categoryProducts(selected_category);
+    } else if(target.matches(".allCategories")) {
+        e.preventDefault();
+        Product.all();
     }
 })
 

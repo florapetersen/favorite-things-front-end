@@ -77,6 +77,14 @@ class Product {
         this.modal.append(this.productDescription, this.productLink);
         return this.modal
     }
+
+    static categoryProducts(category) {
+        let categoryProductsArray = this.collection.filter(product => product.category_id === category.id);
+        let renderedCategoryProducts = categoryProductsArray.map(product => product.render());
+        this.container().innerHTML = "";
+        this.container().append(...renderedCategoryProducts);
+    }
+
     
     render() {
         this.element ||= document.createElement('article');
@@ -104,11 +112,6 @@ class Product {
         this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.categoryLink);
 
         return this.element; 
-    }
-
-    categoryProducts(category) {
-        categoryProductsArray = this.collection.filter(product => product.category_id === category.id);
-        return categoryProductsArray
     }
 }
 
@@ -167,7 +170,7 @@ class Category {
         this.categoryLink ||= document.createElement('a');
         this.categoryLink.classList.add(..."no-underline hover:underline py-1 col-span-10 sm:col-span-4 selectCategory".split(" "));
         this.categoryLink.dataset.categoryId = this.id;
-        this.categoryLink.innerHTML = `<i class="filterCategory" data-product-id="${this.id}">${this.name}</i>`;
+        this.categoryLink.innerHTML = `<i class="filterCategory" data-category-id="${this.id}">${this.name}</i>`;
 
         this.elementTwo ||= document.createElement('a');
         this.elementTwo.classList.add(..."my-4 text-right".split(" "));
