@@ -35,6 +35,35 @@ class Product {
         return this.collection.find(product => product.id == id);
     }
 
+    delete() {
+        let proceed = confirm("Are you sure you want to delete this product?");
+        if(proceed) {
+            return fetch(`http://localhost:3000/products/${this.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+                .then(res => {
+                    if(res.ok) {
+                        return res.json()
+                    } else {
+                        return res.text().then(errors => Promise.reject(errors))
+                    }
+            })
+                .then(json => {
+                    let index = Product.collection.findIndex(list => list.id == json.id);
+                    Product.collection.splice(index, 1);
+                    this.element.remove();
+                    new FlashMessage({type: 'success', message: 'Product deleted successfully'})
+                })
+                .catch(error => {
+                    new FlashMessage({type: 'error', message: error})
+                })
+        }
+    }
+
     static create(formData) {
         return fetch("http://localhost:3000/products", {
             method: "POST",
@@ -91,6 +120,7 @@ class Product {
         this.element.classList.add(..."overflow-hidden rounded-lg shadow-lg p-4".split(" ")); 
 
         this.imgSrc ||= document.createElement('img'); 
+        //img.imgSrc.setProperty('--element-height', height + 'px')
         this.imgSrc.classList.add(..."block h-auto w-full".split(" "));
         this.imgSrc.src = this.image_src; 
         
@@ -109,7 +139,11 @@ class Product {
         this.categoryLink.classList.add(..."flex items-center no-underline text-black".split(" "));
         this.categoryLink.textContent = this.category_name;
 
-        this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.categoryLink);
+        this.deleteLink ||= document.createElement('a');
+        this.deleteLink.classList.add(..."flex items-center no-underline text-black".split(" "));
+        this.deleteLink.innerHTML = `<i class="deleteProduct" data-product-id="${this.id}">Delete Product</i>`;
+
+        this.element.append(this.imgSrc, this.header, this.hOne, this.nameLink, this.categoryLink, this.deleteLink);
 
         return this.element; 
     }
@@ -171,7 +205,7 @@ class Category {
         this.categoryLink.classList.add(..."no-underline hover:underline py-1 col-span-10 sm:col-span-4 selectCategory".split(" "));
         this.categoryLink.dataset.categoryId = this.id;
         this.categoryLink.innerHTML = `<i class="filterCategory" data-category-id="${this.id}">${this.name}</i>`;
-
+        
         this.elementTwo ||= document.createElement('a');
         this.elementTwo.classList.add(..."my-4 text-right".split(" "));
 

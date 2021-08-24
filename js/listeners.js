@@ -14,6 +14,9 @@ document.addEventListener('click', function(e) {
         let product = Product.findById(target.dataset.productId);
         Modal.populate({title: `${product.name}`, content: product.modalContent()})
         Modal.toggle()
+    } else if(target.matches(".deleteProduct")) {
+        let product = Product.findById(target.dataset.productId);
+        product.delete();
     } else if(target.matches(".modal-close") || target.matches(".modal-overlay")) {
         e.preventDefault();
         Modal.toggle();
