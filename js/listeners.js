@@ -17,6 +17,7 @@ document.addEventListener('click', function(e) {
     } else if(target.matches(".deleteProduct")) {
         let product = Product.findById(target.dataset.productId);
         product.delete();
+        document.location.reload();
     } else if(target.matches(".modal-close") || target.matches(".modal-overlay")) {
         e.preventDefault();
         Modal.toggle();
